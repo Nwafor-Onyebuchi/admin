@@ -1,0 +1,27 @@
+.header-container {
+  margin-top: 80px;
+}
+
+.card-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+tr {
+  padding: 70px auto;
+}
+
+.action {
+  text-align: right;
+}
+
+.cancel {
+  background-color: transparent;
+  border: red 1px solid;
+  margin-right: 10px;
+}
+
+label {
+  margin-right: 50px;
+}
