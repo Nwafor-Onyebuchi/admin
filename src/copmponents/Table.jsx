@@ -1,6 +1,7 @@
 import { Table } from "react-bootstrap";
 import axios from "axios";
 import { Fragment, useEffect, useState } from "react";
+import {connect} from 'react-redux'
 import TableSkeleton from "./TableSkeleton";
 import DelModal from "./DelModal";
 import { useHistory } from "react-router-dom";
@@ -18,21 +19,21 @@ const UserTable = () => {
     e.preventDefault();
     setShowModal(!showModal);
   };
-  const getUsers = async () => {
-    try {
-      setLoading(true);
-      const { data } = await axios.get(
-        "https://my-json-server.typicode.com/karolkproexe/jsonplaceholderdb/data"
-      );
-      setLoading(false);
-      setUser(data);
-    } catch (error) {
-      setLoading(false);
-      console.log(error);
-    }
-  };
+  // const getUsers = async () => {
+  //   try {
+  //     setLoading(true);
+  //     const { data } = await axios.get(
+  //       "https://my-json-server.typicode.com/karolkproexe/jsonplaceholderdb/data"
+  //     );
+  //     setLoading(false);
+  //     setUser(data);
+  //   } catch (error) {
+  //     setLoading(false);
+  //     console.log(error);
+  //   }
+  // };
   useEffect(() => {
-    getUsers();
+    // getUsers();
   }, []);
   return (
     <Fragment>
