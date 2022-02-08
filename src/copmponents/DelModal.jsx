@@ -5,9 +5,9 @@ import { deleteUser} from '../actions/userActions'
 
 const DelModal = ({ closeModal, showModal, id, deleteUser}) => {
   return (
-    <Modal show={showModal} >
+    <Modal show={showModal} onHide={closeModal} centered>
       <Modal.Header>
-        <h6>Delete?</h6>
+        <h4>Delete</h4>
       </Modal.Header>
       <Modal.Body>
         <h6>You are about to delete user number {id}? Are you sure about this?</h6>

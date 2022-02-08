@@ -43,7 +43,7 @@ export const deleteUser =  (userId, closeModal) => async dispatch => {
     console.log(userId)
     try {
         setLoading()
-        const { data } = await axios.delete(`https://my-json-server.typicode.com/karolkproexe/jsonplaceholderdb/data/${userId}`)
+         await axios.delete(`https://my-json-server.typicode.com/karolkproexe/jsonplaceholderdb/data/${userId}`)
         dispatch({
             type: DELETE_USER,
             payload: userId
