@@ -25,10 +25,8 @@ const AddUserForm = ({ addUser, updateUser }) => {
       setShowAlert(true);
       setError("Please esnure you have filled both name and email fields");
     } else if(!state.id){
-      console.log('add')
       addUser(userData, () => history.push("/"));
     } else {
-      console.log('update')
       updateUser(state.id, ()=>history.push('/'))
     }
   };
@@ -36,7 +34,7 @@ const AddUserForm = ({ addUser, updateUser }) => {
     <form>
       {showAlert && <Alert variant="danger">{error}</Alert>}
       <div class="mb-3 form-item">
-        <label for="Name" class="form-label" onClick={()=>console.log(state)}>
+        <label for="Name" class="form-label">
           Name
         </label>
         <input

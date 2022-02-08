@@ -30,7 +30,6 @@ const userReducer =  (state = initialState, action) => {
                 loading: false
             };
         case UPDATE_USER:
-            // console.log('id', action.userId)
             return {
                 ...state,
                 users: state.users.map((user)=>{
