@@ -1,9 +1,9 @@
-import {GET_USERS, SET_LOADING, USERS_ERROR} from '../actions/types'
+import {ADD_USER, GET_USERS, SET_LOADING, USERS_ERROR} from '../actions/types'
 
 const initialState = {
     users: [],
     current: null,
-    loading: true,
+    loading: false,
     error: null
 }
 
@@ -14,7 +14,15 @@ const userReducer =  (state = initialState, action) => {
                 ...state,
                 users: action.payload,
                 loading: false
-            }
+            };
+        case ADD_USER:
+            
+            return {
+                ...state,
+                users: [...state.users, action.payload],
+                loading: false
+            };
+        
         case SET_LOADING: 
             return {
                 ...state,

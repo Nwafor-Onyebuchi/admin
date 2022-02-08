@@ -9,7 +9,10 @@ const Home = () => {
 
   const goToForm = (e) => {
     e.preventDefault();
-    history.push("/add-user");
+    history.push({
+      pathname: "/add-user",
+      state: {},
+    });
   };
   return (
     <div className="container">

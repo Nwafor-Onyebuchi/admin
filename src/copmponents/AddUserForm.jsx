@@ -1,19 +1,45 @@
 import { useHistory } from "react-router-dom";
 import "../App.css";
+import { connect } from "react-redux";
+import { addUser } from "../actions/userActions";
+import { useState } from "react";
+import { Alert } from "react-bootstrap";
 
-const AddUserForm = () => {
+const AddUserForm = ({ addUser }) => {
+  const [userData, setUserData] = useState({ name: "", email: "" });
+  const [error, setError] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
   const history = useHistory();
   const cancel = (e) => {
     e.preventDefault();
     history.push("/");
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!userData.email || !userData.name) {
+      setShowAlert(true);
+      setError("Please esnure you have filled both name and email fields");
+    } else {
+      addUser(userData, () => history.push("/"));
+    }
+  };
   return (
     <form>
+      {showAlert && <Alert variant="danger">{error}</Alert>}
       <div class="mb-3 form-item">
         <label for="Name" class="form-label">
           Name
         </label>
-        <input type="text" class="form-control" />
+        <input
+          defaultValue={history.location.state.name}
+          onChange={(e) => {
+            setUserData({ ...userData, name: e.target.value });
+            setShowAlert(false);
+          }}
+          type="text"
+          class="form-control"
+        />
       </div>
       <div>
         <div class="mb-3 form-item">
@@ -21,6 +47,11 @@ const AddUserForm = () => {
             Email
           </label>
           <input
+            defaultValue={history.location.state.email}
+            onChange={(e) => {
+              setUserData({ ...userData, email: e.target.value });
+              setShowAlert(false);
+            }}
             type="email"
             class="form-control"
             aria-describedby="emailHelp"
@@ -32,7 +63,11 @@ const AddUserForm = () => {
         <button onClick={(e) => cancel(e)} className="btn cancel">
           Cancel
         </button>
-        <button type="submit" className="btn btn-primary">
+        <button
+          onClick={(e) => handleSubmit(e)}
+          type="submit"
+          className="btn btn-primary"
+        >
           Save
         </button>
       </div>
@@ -40,4 +75,4 @@ const AddUserForm = () => {
   );
 };
 
-export default AddUserForm;
+export default connect(null, { addUser })(AddUserForm);

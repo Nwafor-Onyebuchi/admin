@@ -10,14 +10,16 @@ const UserTable = ({ users: { users, loading } }) => {
   const [showModal, setShowModal] = useState(false);
 
   const history = useHistory();
-  const edit = () => {
-    history.push("/add-user");
+  const edit = (e, data) => {
+    e.preventDefault();
+    history.push({ pathname: "/add-user", state: data });
   };
   const toggleModal = (e) => {
     e.preventDefault();
     setShowModal(!showModal);
   };
   useEffect(() => {
+    // setLoading();
     getUsers();
   }, []);
   return (
@@ -34,11 +36,12 @@ const UserTable = ({ users: { users, loading } }) => {
             <th>Delete</th>
           </tr>
         </thead>
-        {loading && (
-          <tbody>
-            <TableSkeleton />
-          </tbody>
-        )}
+        {loading ||
+          (users.length === 0 && (
+            <tbody>
+              <TableSkeleton />
+            </tbody>
+          ))}
         <tbody>
           {users.length > 0 &&
             !loading &&
@@ -50,7 +53,10 @@ const UserTable = ({ users: { users, loading } }) => {
                 <td>{user.email}</td>
                 <td>{user.address && user.address.city}</td>
                 <td>
-                  <button onClick={(e) => edit(e)} className="btn btn-warning">
+                  <button
+                    onClick={(e) => edit(e, user)}
+                    className="btn btn-warning"
+                  >
                     Edit
                   </button>
                 </td>
