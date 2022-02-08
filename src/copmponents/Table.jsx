@@ -1,13 +1,12 @@
 import { Table } from "react-bootstrap";
-import axios from "axios";
 import { Fragment, useEffect, useState } from "react";
+import { connect } from "react-redux";
 import TableSkeleton from "./TableSkeleton";
 import DelModal from "./DelModal";
 import { useHistory } from "react-router-dom";
+import { getUsers } from "../actions/userActions";
 
-const UserTable = () => {
-  const [users, setUser] = useState([]);
-  const [loading, setLoading] = useState(false);
+const UserTable = ({ users: { users, loading } }) => {
   const [showModal, setShowModal] = useState(false);
 
   const history = useHistory();
@@ -18,19 +17,6 @@ const UserTable = () => {
     e.preventDefault();
     setShowModal(!showModal);
   };
-  const getUsers = async () => {
-    try {
-      setLoading(true);
-      const { data } = await axios.get(
-        "https://my-json-server.typicode.com/karolkproexe/jsonplaceholderdb/data"
-      );
-      setLoading(false);
-      setUser(data);
-    } catch (error) {
-      setLoading(false);
-      console.log(error);
-    }
-  };
   useEffect(() => {
     getUsers();
   }, []);
@@ -39,7 +25,7 @@ const UserTable = () => {
       <Table responsive striped={!loading}>
         <thead>
           <tr>
-            <th>Id</th>
+            <th onClick={() => console.log(loading)}>Id</th>
             <th>Name</th>
             <th>Username</th>
             <th>Email</th>
@@ -89,4 +75,8 @@ const UserTable = () => {
   );
 };
 
-export default UserTable;
+const mapStateToProps = (state) => ({
+  users: state.users,
+});
+
+export default connect(mapStateToProps, getUsers)(UserTable);
