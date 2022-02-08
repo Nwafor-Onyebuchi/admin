@@ -8,7 +8,7 @@ import { getUsers } from "../actions/userActions";
 
 const UserTable = ({ users: { users, loading } }) => {
   const [showModal, setShowModal] = useState(false);
-
+  const [modalData, setModalData] = useState(null)
   const history = useHistory();
   const edit = (e, data) => {
     e.preventDefault();
@@ -19,7 +19,6 @@ const UserTable = ({ users: { users, loading } }) => {
     setShowModal(!showModal);
   };
   useEffect(() => {
-    // setLoading();
     getUsers();
   }, []);
   return (
@@ -62,7 +61,10 @@ const UserTable = ({ users: { users, loading } }) => {
                 </td>
                 <td>
                   <button
-                    onClick={(e) => toggleModal(e)}
+                    onClick={(e) => {
+                      setModalData(user.id)
+                      toggleModal(e)
+                    }}
                     className="btn btn-danger"
                   >
                     Delete
@@ -74,8 +76,8 @@ const UserTable = ({ users: { users, loading } }) => {
       </Table>
       <DelModal
         showModal={showModal}
-        closeModal={(e) => toggleModal(e)}
-        deleteUser={(e) => toggleModal(e)}
+        closeModal={()=>setShowModal(false)}
+        id={modalData && modalData}
       />
     </Fragment>
   );

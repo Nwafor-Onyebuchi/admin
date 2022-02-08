@@ -1,21 +1,23 @@
 import React from "react";
 import { Modal } from "react-bootstrap";
+import { connect } from 'react-redux'
+import { deleteUser} from '../actions/userActions'
 
-const DelModal = ({ closeModal, deleteUser, showModal }) => {
+const DelModal = ({ closeModal, showModal, id, deleteUser}) => {
   return (
-    <Modal show={showModal} onHide={deleteUser}>
+    <Modal show={showModal} >
       <Modal.Header>
         <h6>Delete?</h6>
       </Modal.Header>
       <Modal.Body>
-        <h6>You are about to delete user with id 4?</h6>
+        <h6>You are about to delete user number {id}? Are you sure about this?</h6>
       </Modal.Body>
       <Modal.Footer>
         <div className="action">
           <button onClick={closeModal} className="btn btn-default">
             Cancel
           </button>
-          <button onClick={closeModal} type="submit" className="btn btn-danger">
+          <button onClick={()=>deleteUser(id, ()=>closeModal())} type="submit" className="btn btn-danger">
             Delete
           </button>
         </div>
@@ -24,4 +26,4 @@ const DelModal = ({ closeModal, deleteUser, showModal }) => {
   );
 };
 
-export default DelModal;
+export default connect(null, {deleteUser})(DelModal);

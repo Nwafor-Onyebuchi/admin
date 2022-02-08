@@ -1,4 +1,4 @@
-import {ADD_USER, GET_USERS, SET_LOADING, USERS_ERROR} from '../actions/types'
+import {ADD_USER, DELETE_USER, GET_USERS, SET_LOADING, UPDATE_USER, USERS_ERROR} from '../actions/types'
 
 const initialState = {
     users: [],
@@ -22,7 +22,25 @@ const userReducer =  (state = initialState, action) => {
                 users: [...state.users, action.payload],
                 loading: false
             };
+        case DELETE_USER:
         
+            return {
+                ...state,
+                users: state.users.filter((user)=>user.id !==action.payload),
+                loading: false
+            };
+        case UPDATE_USER:
+            // console.log('id', action.userId)
+            return {
+                ...state,
+                users: state.users.map((user)=>{
+                    if(user.id === action.userId) {
+                        return action.payload
+                    }
+                    return user
+                }),
+                loading: false
+            };
         case SET_LOADING: 
             return {
                 ...state,

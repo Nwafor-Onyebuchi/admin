@@ -1,34 +1,42 @@
 import { useHistory } from "react-router-dom";
 import "../App.css";
 import { connect } from "react-redux";
-import { addUser } from "../actions/userActions";
+import { addUser, updateUser } from "../actions/userActions";
 import { useState } from "react";
 import { Alert } from "react-bootstrap";
 
-const AddUserForm = ({ addUser }) => {
-  const [userData, setUserData] = useState({ name: "", email: "" });
+const AddUserForm = ({ addUser, updateUser }) => {
+
   const [error, setError] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const history = useHistory();
+  const {location: {state}} = history 
+  const [userData, setUserData] = useState({ name: state.name || "", email: state.email ||"" });
+
   const cancel = (e) => {
     e.preventDefault();
     history.push("/");
   };
-
+  
   const handleSubmit = (e) => {
+    
     e.preventDefault();
     if (!userData.email || !userData.name) {
       setShowAlert(true);
       setError("Please esnure you have filled both name and email fields");
-    } else {
+    } else if(!state.id){
+      console.log('add')
       addUser(userData, () => history.push("/"));
+    } else {
+      console.log('update')
+      updateUser(state.id, ()=>history.push('/'))
     }
   };
   return (
     <form>
       {showAlert && <Alert variant="danger">{error}</Alert>}
       <div class="mb-3 form-item">
-        <label for="Name" class="form-label">
+        <label for="Name" class="form-label" onClick={()=>console.log(state)}>
           Name
         </label>
         <input
@@ -75,4 +83,4 @@ const AddUserForm = ({ addUser }) => {
   );
 };
 
-export default connect(null, { addUser })(AddUserForm);
+export default connect(null, { addUser, updateUser })(AddUserForm);
