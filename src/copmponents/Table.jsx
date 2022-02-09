@@ -23,7 +23,7 @@ const UserTable = ({ users: { users, loading } }) => {
   
   useEffect(() => {
    !state.save && getUsers();
-  }, []);
+  }, [state.save ]);
   return (
     <Fragment>
       <Table responsive striped={!loading}>
