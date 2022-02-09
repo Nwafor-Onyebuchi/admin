@@ -10,6 +10,8 @@ const UserTable = ({ users: { users, loading } }) => {
   const [showModal, setShowModal] = useState(false);
   const [modalData, setModalData] = useState(null)
   const history = useHistory();
+
+  
   const edit = (e, data) => {
     e.preventDefault();
     history.push({ pathname: "/add-user", state: data });
@@ -22,8 +24,8 @@ const UserTable = ({ users: { users, loading } }) => {
   const {location: { state }} = history
   
   useEffect(() => {
-   !state.save && getUsers();
-  }, [state.save ]);
+   state && !state.save && getUsers();
+  }, [state && state.save ]);
   return (
     <Fragment>
       <Table responsive striped={!loading}>
