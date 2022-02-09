@@ -18,15 +18,18 @@ const UserTable = ({ users: { users, loading } }) => {
     e.preventDefault();
     setShowModal(!showModal);
   };
+
+  const {location: { state }} = history
+  
   useEffect(() => {
-    getUsers();
+   !state.save && getUsers();
   }, []);
   return (
     <Fragment>
       <Table responsive striped={!loading}>
         <thead>
           <tr>
-            <th onClick={() => console.log(loading)}>Id</th>
+            <th onClick={() => console.log(history)}>Id</th>
             <th>Name</th>
             <th>Username</th>
             <th>Email</th>

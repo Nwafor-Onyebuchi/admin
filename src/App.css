@@ -26,3 +26,9 @@ tr {
 label {
   margin-right: 50px;
 }
+
+.validation-message {
+  margin-top: -10px;
+  font-size: 14px;
+  color: red;
+}
