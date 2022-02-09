@@ -29,7 +29,7 @@ const UserTable = ({ users: { users, loading } }) => {
       <Table responsive striped={!loading}>
         <thead>
           <tr>
-            <th onClick={() => console.log(history)}>Id</th>
+            <th>Id</th>
             <th>Name</th>
             <th>Username</th>
             <th>Email</th>
